@@ -11,11 +11,17 @@ Proyecto Astro preparado para desplegarse en Vercel con:
 Crea el archivo `.env` con estos valores:
 
 ```env
-SUPABASE_URL=tu_url_de_supabase
-SUPABASE_KEY=tu_api_key_de_supabase
+SUPABASE_URL=https://zefgfouxfnuqurspvaze.supabase.co
+SUPABASE_KEY=tu_anon_key_de_supabase
+SUPABASE_SERVICE_ROLE_KEY=opcional_recomendado_para_servidor
 ```
 
 En Vercel debes configurar las mismas variables en el dashboard del proyecto.
+
+Nota:
+
+- si defines `SUPABASE_SERVICE_ROLE_KEY`, la API la usa primero (recomendado para escritura desde servidor)
+- si no existe, usa `SUPABASE_KEY`
 
 ## Instalación
 
@@ -67,6 +73,12 @@ La ruta:
 3. redirige a `/page/1`
 
 Si falta el parámetro o Supabase falla, la experiencia no se rompe: igual redirige a `/page/1`.
+
+## Preparar base de datos
+
+1. Abre SQL Editor en Supabase.
+2. Ejecuta el script [supabase/setup.sql](supabase/setup.sql).
+3. Verifica que exista la tabla `public.clics`.
 
 ## Despliegue en Vercel
 
