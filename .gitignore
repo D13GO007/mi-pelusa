@@ -7,6 +7,12 @@ dist/
 # dependencies
 node_modules/
 
+# vercel local output
+.vercel/
+
+# nested accidental repo
+pelusa/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

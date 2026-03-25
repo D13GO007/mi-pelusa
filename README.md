@@ -43,12 +43,13 @@ src/
 ├── layouts/
 │   └── Layout.astro
 └── pages/
-	├── api/
-	│   └── track.ts
 	├── index.astro
 	└── page/
 		├── 1.astro
 		└── 2.astro
+
+api/
+└── track.js
 ```
 
 ## Flujo del enlace compartido
