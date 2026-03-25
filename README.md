@@ -1,46 +1,75 @@
-# Astro Starter Kit: Basics
+# Mi Pelusa
+
+Proyecto Astro preparado para desplegarse en Vercel con:
+
+- una ruta API para registrar visitas en Supabase
+- una portada redirigida a la página 1 del libro
+- una maquetación tipo libro antiguo, optimizada para móvil
+
+## Variables de entorno
+
+Crea el archivo `.env` con estos valores:
+
+```env
+SUPABASE_URL=tu_url_de_supabase
+SUPABASE_KEY=tu_api_key_de_supabase
+```
+
+En Vercel debes configurar las mismas variables en el dashboard del proyecto.
+
+## Instalación
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Desarrollo local
 
-## 🚀 Project Structure
+```sh
+npm run dev
+```
 
-Inside of your Astro project, you'll see the following folders and files:
+## Validación
+
+```sh
+npm run check
+npm run build
+```
+
+## Estructura principal
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── layouts/
+│   └── Layout.astro
+└── pages/
+	├── api/
+	│   └── track.ts
+	├── index.astro
+	└── page/
+		├── 1.astro
+		└── 2.astro
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Flujo del enlace compartido
 
-## 🧞 Commands
+Comparte este enlace:
 
-All commands are run from the root of the project, from a terminal:
+```text
+https://tu-libro.vercel.app/api/track?quien=NombreDeElla
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+La ruta:
 
-## 👀 Want to learn more?
+1. lee el valor de `quien`
+2. lo guarda en la tabla `clics` de Supabase
+3. redirige a `/page/1`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Si falta el parámetro o Supabase falla, la experiencia no se rompe: igual redirige a `/page/1`.
+
+## Despliegue en Vercel
+
+1. Sube este proyecto a un repositorio Git.
+2. Importa el repositorio en Vercel.
+3. Añade `SUPABASE_URL` y `SUPABASE_KEY` en las variables de entorno.
+4. Ejecuta el despliegue.
