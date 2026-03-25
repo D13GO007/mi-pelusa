@@ -13,7 +13,7 @@ function getSupabaseClient() {
 
 export default async function handler(req, res) {
 	if (req.method !== 'GET') {
-		return res.status(405).json({ error: 'Metodo no permitido' });
+		return res.status(405).send('Metodo no permitido');
 	}
 
 	const { quien } = req.query;
@@ -26,18 +26,20 @@ export default async function handler(req, res) {
 	const supabase = getSupabaseClient();
 
 	if (!supabase) {
-		console.error('Faltan variables de Supabase en entorno.');
-		return res.redirect(307, '/page/1');
+		return res
+			.status(500)
+			.send('Error del servidor: Faltan SUPABASE_URL o SUPABASE_KEY en entorno.');
 	}
 
 	try {
 		const { error } = await supabase.from('clics').insert([{ quien: cleanName }]);
 
 		if (error) {
-			throw error;
+			return res.status(500).send(`Error de Supabase: ${error.message}`);
 		}
 	} catch (error) {
-		console.error('Error al registrar:', error);
+		const message = error instanceof Error ? error.message : String(error);
+		return res.status(500).send(`Error del servidor: ${message}`);
 	}
 
 	return res.redirect(307, '/page/1');
